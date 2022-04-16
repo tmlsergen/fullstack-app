@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
+    /**
+     * Fetch All Comments
+     *
+     * @param Request $request
+     * @param CommentManager $manager
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request, CommentManager $manager)
     {
         $comments = $manager->getParentCommentsWithChild();
@@ -17,6 +24,13 @@ class CommentController extends Controller
         return response_success($comments);
     }
 
+    /**
+     * Store Comment
+     *
+     * @param CreateCommentRequest $request
+     * @param CommentManager $manager
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(CreateCommentRequest $request, CommentManager $manager)
     {
         $validated = $request->validated();

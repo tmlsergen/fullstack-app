@@ -13,6 +13,13 @@ class CommentRepository
         $this->model = $model;
     }
 
+    /**
+     * fetch comments by filter and options
+     *
+     * @param array $filters
+     * @param array $options
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function get(array $filters = [], array $options = [])
     {
         $query = $this->model;
@@ -44,6 +51,12 @@ class CommentRepository
         return $query->get();
     }
 
+    /**
+     * create comment
+     *
+     * @param array $data
+     * @return mixed
+     */
     public function create(array $data)
     {
         return $this->model->create([

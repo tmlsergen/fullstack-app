@@ -6,15 +6,21 @@ use App\Repository\CommentRepository;
 
 class CommentManager
 {
+    /**
+     * @var CommentRepository
+     */
     private CommentRepository $commentRepository;
 
+    /**
+     * @param CommentRepository $commentRepository
+     */
     public function __construct(CommentRepository $commentRepository)
     {
         $this->commentRepository = $commentRepository;
     }
 
     /**
-     *
+     * Get All Comments With Child Comments
      *
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -28,6 +34,12 @@ class CommentManager
         ]);
     }
 
+    /**
+     * Create Comment
+     *
+     * @param array $data
+     * @return mixed
+     */
     public function create(array $data)
     {
         $data['layer'] = (string)$data['layer'];
