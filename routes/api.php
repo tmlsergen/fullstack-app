@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(CommentController::class)->prefix('comment')->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
+    Route::get('/', 'index')->name('comment.index');
+    Route::post('/', 'store')->name('comment.store');
 });
