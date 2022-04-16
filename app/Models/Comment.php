@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Comment extends Model
 {
@@ -16,6 +17,10 @@ class Comment extends Model
         'comment'
     ];
 
+    protected $casts = [
+        'created_at' => "datetime:Y-m-d\TH:iPZ",
+    ];
+
     /**
      *
      *
@@ -23,11 +28,27 @@ class Comment extends Model
      */
     public function child()
     {
-        return $this->hasMany(__CLASS__, 'parent_id', 'id');
+        return $this->hasMany(__CLASS__, 'parent_id', 'id')->orderBy('created_at','desc');
+    }
+
+    public function children()
+    {
+        return $this->child()->with('children')->orderBy('created_at','desc');
     }
 
     public function parent()
     {
-        return $this->belongsTo(__CLASS__, 'parent_id', 'id');
+        return $this->belongsTo(__CLASS__, 'parent_id', 'id')->orderBy('created_at','desc');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i');
+    }
+
 }

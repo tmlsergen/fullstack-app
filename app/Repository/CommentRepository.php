@@ -37,6 +37,10 @@ class CommentRepository
             $query = $query->where('user_name', $filters['user_name']);
         }
 
+        if (array_key_exists('orderBy', $options)){
+            $query = $query->orderBy('created_at', $options['orderBy']);
+        }
+
         return $query->get();
     }
 

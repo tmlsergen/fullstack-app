@@ -14,17 +14,34 @@
                 voluptas? Commodi debitis delectus distinctio fuga fugit veritatis. Blanditiis fuga hic nulla
                 voluptatibus. Beatae culpa modi quibusdam.</p>
         </article>
-        <Comment></Comment>
+        <Comment v-on:fetch-again="fetchComments" :comments="comments"></Comment>
     </div>
 </template>
 <script>
 import HeaderComponent from "./HeaderComponent";
 import Comment from "./CommentComponent";
+import axios from 'axios';
+
 export default {
     components: {
         HeaderComponent,
         Comment
     },
+    data() {
+      return {
+          comments: []
+      }
+    },
+    async created() {
+        await this.fetchComments()
+    },
+    methods: {
+        async fetchComments(){
+            await axios.get('api/comment').then(response => {
+                this.comments = response.data.data;
+            });
+        }
+    }
 }
 </script>
 

@@ -23,7 +23,8 @@ class CommentManager
         return $this->commentRepository->get([
             'parent_id' => 0
         ], [
-            'with' => 'child'
+            'with' => 'children',
+            'orderBy' => 'desc'
         ]);
     }
 
